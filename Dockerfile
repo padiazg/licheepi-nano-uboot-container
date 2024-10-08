@@ -23,6 +23,10 @@ RUN apt update && \
 	libncurses-dev \
 	device-tree-compiler \
 	flex \
+	libusb-1.0-0-dev \
+	libz-dev \
+	libfdt-dev \
+	pkg-config \
 # 	coccinelle \
 # 	dfu-util \
 # 	efitools \
@@ -31,7 +35,7 @@ RUN apt update && \
 # 	imagemagick \
 #   liblz4-tool libgnutls28-dev libguestfs-tools \
 #   libpython3-dev libsdl2-dev lz4 lzma lzma-alone openssl \
-#   pkg-config python3 python3-asteval python3-coverage python3-filelock \
+#    python3 python3-asteval python3-coverage python3-filelock \
 #   python3-pkg-resources python3-pycryptodome python3-pyelftools \
 #   python3-pytest python3-pytest-xdist python3-sphinxcontrib.apidoc \
 #   python3-sphinx-rtd-theme python3-subunit python3-testtools \
@@ -41,13 +45,25 @@ RUN apt update && \
 
 RUN update-locale LC_ALL=C
 
+FROM base as tools
+ARG BUILDROOT_BASE
 WORKDIR $BUILDROOT_BASE
-# RUN git clone --depth 1 --branch v2023.10 https://source.denx.de/u-boot/u-boot.git
-RUN git clone --depth 1 https://github.com/u-boot/u-boot.git
+RUN git clone --depth 1 https://github.com/linux-sunxi/sunxi-tools.git && \
+	cd sunxi-tools && \
+	make && \
+	make install
 
 FROM base AS build
 ARG BUILDROOT_BASE
 ARG CONFIGFILE
+
+COPY --from=tools /usr/local/bin/ /usr/local/bin/
+COPY --from=tools /usr/local/share/man/man1/ /usr/local/share/man/man1/
+
+WORKDIR $BUILDROOT_BASE
+
+# RUN git clone --depth 1 --branch v2023.10 https://source.denx.de/u-boot/u-boot.git
+RUN git clone --depth 1 https://github.com/u-boot/u-boot.git
 
 WORKDIR $BUILDROOT_BASE/u-boot
 COPY licheepi-nano/licheepi_nano_defconfig configs/
