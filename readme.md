@@ -1,5 +1,4 @@
 # LicheePi Nano U-Boot Project
-Based on https://github.com/u-boot/u-boot
 
 ## Introduction
 This project provides a U-Boot build configuration for the LicheePi Nano, a small and affordable development board based on the Allwinner F1C100s SoC. U-Boot is a popular open-source bootloader used in embedded systems. This project aims to facilitate the building and customization of U-Boot for the LicheePi Nano.
@@ -68,6 +67,10 @@ sunxi-fel -p spiflash-write 0x40000000 u-boot-sunxi-with-spl.bin
 MacOS has a different driver model and there's no way to pass the USB bus to the container, so the __sunxi-tools__ won't find the USB bus and wont work.
 If Docker is running on a VM it might work, just use the instructions for linux and it probably would work, but I didn't tryied it as my Mac runs Docker Desktop native.
 
+
+## Sources
+U-Boot: https://github.com/u-boot/u-boot
+Sunxi tools: https://github.com/linux-sunxi/sunxi-tools
 
 ## Contributing
 Contributions are welcome! Please follow these steps to contribute:
