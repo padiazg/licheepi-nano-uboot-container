@@ -20,22 +20,27 @@ RUN apt update && \
     python3-setuptools \
 	libssl-dev \
 	libncurses-dev \
+	libusb-1.0-0-dev \
+	libfdt-dev \
 	device-tree-compiler \
 	flex \
 	swig \
-	uuid-dev
+	uuid-dev \
+	pkg-config 
 
 RUN update-locale LC_ALL=C
 
-FROM base as tools
+# Build sunxi-tools
+FROM base AS tools
 ARG BUILDROOT_BASE
 WORKDIR $BUILDROOT_BASE
 RUN git clone --depth 1 https://github.com/linux-sunxi/sunxi-tools.git && \
-	cd sunxi-tools && \
-	make && \
-	make install
+cd sunxi-tools && \
+make && \
+make install
 
-FROM base AS build
+# Build u-boot files
+FROM base AS main
 ARG BUILDROOT_BASE
 ARG CONFIGFILE
 
@@ -59,4 +64,4 @@ RUN make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
 
 # expose built image files in standalone root folder
 FROM scratch AS dist
-COPY --from=build /root/u-boot/u-boot* .
+COPY --from=main /root/u-boot/u-boot* .
