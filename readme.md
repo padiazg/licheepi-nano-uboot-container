@@ -69,8 +69,8 @@ If Docker is running on a VM it might work, just use the instructions for linux 
 
 
 ## Sources
-U-Boot: https://github.com/u-boot/u-boot
-Sunxi tools: https://github.com/linux-sunxi/sunxi-tools
+U-Boot: https://github.com/u-boot/u-boot  
+Sunxi tools: https://github.com/linux-sunxi/sunxi-tools  
 
 ## Contributing
 Contributions are welcome! Please follow these steps to contribute:
