@@ -47,4 +47,4 @@ Contributions are welcome! Please follow these steps to contribute:
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For questions or feedback, please contact [yourname@domain.com](mailto:yourname@domain.com).
+For questions or feedback, please contact [padiazg@gmail.com](mailto:padiazg@gmail.com) or [patricio@patodiaz.io](patricio@patodiaz.io).
