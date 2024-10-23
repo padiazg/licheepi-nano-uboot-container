@@ -29,7 +29,7 @@ Flash the U-Boot binary to your LicheePi Nano using your preferred method (e.g.,
 You can build the images inside the container, perhaps with some customizations, or maybe you want to use the sunxi-tools inside the images.
 ```shell
 # build a temporary image
-docker buildx build --target build -t u-boot-temp .
+docker buildx build --target main -t u-boot-temp .
 
 # run a container
 docker run \

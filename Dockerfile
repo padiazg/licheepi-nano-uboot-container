@@ -53,14 +53,19 @@ WORKDIR $BUILDROOT_BASE
 RUN git clone --depth 1 https://github.com/u-boot/u-boot.git
 
 WORKDIR $BUILDROOT_BASE/u-boot
-COPY licheepi-nano/licheepi_nano_defconfig configs/
-COPY licheepi-nano/licheepi_nano_spiflash_defconfig configs/
+# COPY licheepi-nano/licheepi_nano_defconfig configs/
+# COPY licheepi-nano/licheepi_nano_spiflash_defconfig configs/
+# COPY licheepi-nano/suniv-f1c100s-licheepi-nano-custom.dts dts/upstream/src/arm/allwinner
+COPY licheepi-nano licheepi-nano
+RUN ln -fs $PWD/licheepi-nano/licheepi_nano_defconfig configs/licheepi_nano_defconfig \
+ && ln -fs $PWD/licheepi-nano/licheepi_nano_spiflash_defconfig configs/licheepi_nano_spiflash_defconfig \
+ && ln -fs $PWD/licheepi-nano/suniv-f1c100s-licheepi-nano-spiflash.dtsi arch/arm/dts/suniv-f1c100s-licheepi-nano-spiflash.dtsi
 
-# configure default config for the board
+ # configure default config for the board
 RUN make $CONFIGFILE
 
 # run the build
-RUN make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+RUN make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j4
 
 # expose built image files in standalone root folder
 FROM scratch AS dist
