@@ -61,12 +61,28 @@ make
 
 # run the sunxi-tools (linux)
 sunxi-fel list
-sunxi-fel -p spiflash-write 0x40000000 u-boot-sunxi-with-spl.bin
+sunxi-fel -p spiflash-write 0 u-boot-sunxi-with-spl.bin
+sunxi-fel -p spiflash-write 0x100000 u-boot.dtb
 ```
 
 MacOS has a different driver model and there's no way to pass the USB bus to the container, so the __sunxi-tools__ won't find the USB bus and wont work.
 If Docker is running on a VM it might work, just use the instructions for linux and it probably would work, but I didn't tryied it as my Mac runs Docker Desktop native.
 
+## What's added
+Files at `licheepi-nano` are linked to their corresponding folders
+```shell
+configs/licheepi_nano_defconfig -> licheepi-nano/licheepi_nano_defconfig
+configs/licheepi_nano_spiflash_defconfig -> licheepi-nano/licheepi_nano_spiflash_defconfig
+arch/arm/dts/suniv-f1c100s-licheepi-nano-spiflash.dtsi -> licheepi-nano/suniv-f1c100s-licheepi-nano-spiflash.dtsi
+```
+After a succesfull build the files are copied to the `dist` folder and can be writen to the SPI flash using the `sunxi-tools`. You need the [tools](https://github.com/linux-sunxi/sunxi-tools) intalled or you can use the container as shown above. Check the documentation for more information.
+```shell
+# u-boot
+sudo sunxi-fel -p spiflash-write 0 dist/u-boot-sunxi-with-spl.bin
+
+# DTB
+sudo sunxi-fel -p spiflash-write 0x100000 dist/u-boot.dtb
+```
 
 ## Sources
 U-Boot: https://github.com/u-boot/u-boot  

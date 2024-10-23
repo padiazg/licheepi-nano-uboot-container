@@ -1,4 +1,8 @@
-// SPDX-License-Identifier: (GPL-2.0+ OR X11)
+/ SPDX-License-Identifier: (GPL-2.0+ OR X11)
+/*
+ * Copyright 2024 Pato Diaz <padiazg@gmail.com>
+ *                          <patricio@patodiaz.io>
+ */
 
 / {
 	model = "Lichee Pi Nano (Custom)";
