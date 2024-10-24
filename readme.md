@@ -89,7 +89,7 @@ The SPI flash is partitioned as follows:
 
 ||Dec||Hex||
 |-|-|-|-|-|
-Partition|Start|Size|Start|Size
+**Partition**|**Start**|**Size**|**Start**|**Size**
 u-boot|0|1.048.576|0x0|0x100000
 dtb|1.048.576|65.536|0x100000|0x10000
 kernel|1.114.112|5.177.344|0x110000|0x4F0000
