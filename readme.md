@@ -84,6 +84,18 @@ sudo sunxi-fel -p spiflash-write 0 dist/u-boot-sunxi-with-spl.bin
 sudo sunxi-fel -p spiflash-write 0x100000 dist/u-boot.dtb
 ```
 
+# Partitions
+The SPI flash is partitioned as follows:
+
+||Dec||Hex||
+|-|-|-|-|-|
+Partition|Start|Size|Start|Size
+u-boot|0|1.048.576|0x0|0x100000
+dtb|1.048.576|65.536|0x100000|0x10000
+kernel|1.114.112|5.177.344|0x110000|0x4F0000
+root|6.291.456|10.485.760|0x600000|0xA00000
+total||16.777.216||0x1000000
+
 ## Sources
 U-Boot: https://github.com/u-boot/u-boot  
 Sunxi tools: https://github.com/linux-sunxi/sunxi-tools  
